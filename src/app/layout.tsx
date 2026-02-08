@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Inter, Noto_Sans_JP } from "next/font/google";
+import Script from "next/script";
 import "./globals.css";
 
 const inter = Inter({
@@ -46,6 +47,9 @@ export const metadata: Metadata = {
   icons: {
     icon: "/favicon.ico",
   },
+  verification: {
+    google: "U-eest0kNsPYHcPIdb9IPwQ8fzBDDx6tLkt2ewp8_Gc",
+  },
 };
 
 export default function RootLayout({
@@ -55,6 +59,20 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ja">
+      <head>
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-GG4GD0H77R"
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-GG4GD0H77R');
+          `}
+        </Script>
+      </head>
       <body
         className={`${inter.variable} ${notoSansJP.variable} font-sans antialiased`}
         style={{ fontFamily: "var(--font-noto-sans-jp), var(--font-inter), sans-serif" }}
