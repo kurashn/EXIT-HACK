@@ -167,9 +167,23 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
 
     closeListIfNeeded(); // Ensure list is closed at end
 
+    // Extract FAQs
+    const faqs: { question: string; answer: string }[] = [];
+    const faqSectionMatch = article.content.match(/## よくある質問（FAQ）([\s\S]*?)(?=$|^#)/);
+    if (faqSectionMatch) {
+        const faqContent = faqSectionMatch[1];
+        const faqMatches = faqContent.matchAll(/### Q\. (.+)\nA\. ([\s\S]*?)(?=\n###|$)/g);
+        for (const match of faqMatches) {
+            faqs.push({
+                question: match[1].trim(),
+                answer: match[2].trim()
+            });
+        }
+    }
+
     return (
         <div className="min-h-screen flex flex-col bg-[#F8FAFC]">
-            <JsonLd type="article" article={article} />
+            <JsonLd type="article" article={article} faqs={faqs} />
             <Navbar />
 
             {/* Hero Header */}
