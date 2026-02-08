@@ -1,9 +1,15 @@
 import { config, fields, collection } from "@keystatic/core";
 
 export default config({
-    storage: {
-        kind: "local",
-    },
+    storage:
+        process.env.NODE_ENV === "production"
+            ? {
+                kind: "github",
+                repo: "kurashn/EXIT-HACK",
+            }
+            : {
+                kind: "local",
+            },
     collections: {
         articles: collection({
             label: "コラム記事",
