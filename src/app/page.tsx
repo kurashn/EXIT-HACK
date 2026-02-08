@@ -118,7 +118,7 @@ export default function Home() {
             </div>
 
             <div className="grid gap-8 lg:grid-cols-3">
-              {/* Ranking Item 1 - ガーディアン (総合おすすめ) */}
+              {/* Ranking Item 1 - 退職代行Jobs (総合おすすめ) */}
               <Card className="relative overflow-hidden border-2 border-blue-500 bg-white shadow-xl transform hover:-translate-y-1 transition-all duration-300">
                 <div className="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-blue-500 to-blue-700" />
                 {/* Category Icon */}
@@ -130,22 +130,66 @@ export default function Home() {
                   総合おすすめ
                 </div>
                 <CardHeader className="pb-4 mt-8">
-                  <div className="mb-2 text-sm text-blue-600 font-bold">労働組合法人が直接運営</div>
-                  <CardTitle className="text-3xl font-bold text-slate-900">ガーディアン</CardTitle>
-                  <CardDescription className="text-slate-500">東京労働経済組合運営・メディア掲載実績多数</CardDescription>
+                  <div className="mb-2 text-sm text-blue-600 font-bold">弁護士監修 × 労働組合提携</div>
+                  <CardTitle className="text-3xl font-bold text-slate-900">退職代行Jobs</CardTitle>
+                  <CardDescription className="text-slate-500">弁護士監修 + 労働組合の安心体制・後払いOK</CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-6">
                   <div className="space-y-3">
                     <div className="flex items-start gap-3 text-sm text-slate-700">
                       <CheckCircle2 className="h-5 w-5 text-blue-600 shrink-0" />
+                      <span>後払い・全額返金保証あり</span>
+                    </div>
+                    <div className="flex items-start gap-3 text-sm text-slate-700">
+                      <CheckCircle2 className="h-5 w-5 text-blue-600 shrink-0" />
+                      <span>無料の転職サポート・失業保険申請サポート付き</span>
+                    </div>
+                    <div className="flex items-start gap-3 text-sm text-slate-700">
+                      <CheckCircle2 className="h-5 w-5 text-blue-600 shrink-0" />
+                      <span>24時間受付・LINEで即日対応</span>
+                    </div>
+                  </div>
+                  <div className="rounded-lg bg-blue-50 p-4 text-center border border-blue-200">
+                    <div className="text-xs text-blue-600 mb-1">安心パックプラン（労働組合加入込み）</div>
+                    <p className="text-3xl font-bold text-slate-900 font-mono">27,000<span className="text-base font-sans text-slate-500 font-normal">円(税込)</span></p>
+                  </div>
+                </CardContent>
+                <div className="p-6 pt-0">
+                  <Button className="w-full h-12 text-base font-bold" asChild>
+                    <a href="https://jobs1.jp/" target="_blank" rel="nofollow noopener">
+                      公式サイトで無料相談 <ArrowRight className="ml-2 h-4 w-4" />
+                    </a>
+                  </Button>
+                </div>
+              </Card>
+
+              {/* Ranking Item 2 - ガーディアン (コスパ最強) */}
+              <Card className="relative overflow-hidden border border-slate-200 bg-white shadow-md hover:shadow-lg transition-shadow">
+                {/* Category Icon */}
+                <div className="absolute -top-2 -right-2 h-14 w-14 z-20 bg-slate-500 rounded-full flex items-center justify-center shadow-md">
+                  <Zap className="w-7 h-7 text-white" />
+                </div>
+                {/* Label */}
+                <div className="absolute top-4 left-4 bg-slate-100 px-3 py-1 rounded-full text-xs font-bold text-slate-600 z-10">
+                  コスパ最強
+                </div>
+                <CardHeader className="pb-4 mt-8">
+                  <div className="mb-2 text-sm text-slate-500 font-medium">労働組合法人が直接運営</div>
+                  <CardTitle className="text-2xl font-bold text-slate-900">ガーディアン</CardTitle>
+                  <CardDescription>東京労働経済組合運営・メディア掲載実績多数</CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-6">
+                  <div className="space-y-3">
+                    <div className="flex items-start gap-3 text-sm text-slate-600">
+                      <CheckCircle2 className="h-5 w-5 text-blue-500 shrink-0" />
                       <span>労働組合が直接運営で交渉力が強い</span>
                     </div>
-                    <div className="flex items-start gap-3 text-sm text-slate-700">
-                      <CheckCircle2 className="h-5 w-5 text-blue-600 shrink-0" />
+                    <div className="flex items-start gap-3 text-sm text-slate-600">
+                      <CheckCircle2 className="h-5 w-5 text-blue-500 shrink-0" />
                       <span>一律料金・追加費用一切なし</span>
                     </div>
-                    <div className="flex items-start gap-3 text-sm text-slate-700">
-                      <CheckCircle2 className="h-5 w-5 text-blue-600 shrink-0" />
+                    <div className="flex items-start gap-3 text-sm text-slate-600">
+                      <CheckCircle2 className="h-5 w-5 text-blue-500 shrink-0" />
                       <span>LINEで完結・即日対応</span>
                     </div>
                   </div>
@@ -155,52 +199,8 @@ export default function Home() {
                   </div>
                 </CardContent>
                 <div className="p-6 pt-0">
-                  <Button className="w-full h-12 text-base font-bold" asChild>
-                    <a href="https://taisyokudaiko.jp" target="_blank" rel="nofollow noopener">
-                      公式サイトで無料相談 <ArrowRight className="ml-2 h-4 w-4" />
-                    </a>
-                  </Button>
-                </div>
-              </Card>
-
-              {/* Ranking Item 2 - 退職代行Jobs (コスパおすすめ) */}
-              <Card className="relative overflow-hidden border border-slate-200 bg-white shadow-md hover:shadow-lg transition-shadow">
-                {/* Category Icon */}
-                <div className="absolute -top-2 -right-2 h-14 w-14 z-20 bg-slate-500 rounded-full flex items-center justify-center shadow-md">
-                  <Zap className="w-7 h-7 text-white" />
-                </div>
-                {/* Label */}
-                <div className="absolute top-4 left-4 bg-slate-100 px-3 py-1 rounded-full text-xs font-bold text-slate-600 z-10">
-                  コスパ重視
-                </div>
-                <CardHeader className="pb-4 mt-8">
-                  <div className="mb-2 text-sm text-slate-500 font-medium">弁護士監修 × 労働組合提携</div>
-                  <CardTitle className="text-2xl font-bold text-slate-900">退職代行Jobs</CardTitle>
-                  <CardDescription>弁護士監修 + 労働組合の安心体制（安心パック）</CardDescription>
-                </CardHeader>
-                <CardContent className="space-y-6">
-                  <div className="space-y-3">
-                    <div className="flex items-start gap-3 text-sm text-slate-600">
-                      <CheckCircle2 className="h-5 w-5 text-blue-500 shrink-0" />
-                      <span>後払い・全額返金保証あり</span>
-                    </div>
-                    <div className="flex items-start gap-3 text-sm text-slate-600">
-                      <CheckCircle2 className="h-5 w-5 text-blue-500 shrink-0" />
-                      <span>無料の転職サポート付き</span>
-                    </div>
-                    <div className="flex items-start gap-3 text-sm text-slate-600">
-                      <CheckCircle2 className="h-5 w-5 text-blue-500 shrink-0" />
-                      <span>退職届テンプレート無料提供</span>
-                    </div>
-                  </div>
-                  <div className="rounded-lg bg-slate-50 p-4 text-center border border-slate-200">
-                    <div className="text-xs text-slate-500 mb-1">安心パックプラン（労働組合加入込み）</div>
-                    <p className="text-3xl font-bold text-slate-900 font-mono">27,000<span className="text-base font-sans text-slate-500 font-normal">円(税込)</span></p>
-                  </div>
-                </CardContent>
-                <div className="p-6 pt-0">
                   <Button variant="secondary" className="w-full h-12" asChild>
-                    <a href="https://jobs1.jp/" target="_blank" rel="nofollow noopener">公式サイトを見る</a>
+                    <a href="https://taisyokudaiko.jp" target="_blank" rel="nofollow noopener">公式サイトを見る</a>
                   </Button>
                 </div>
               </Card>
