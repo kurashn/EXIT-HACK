@@ -151,7 +151,7 @@ export function Diagnosis() {
                                                 法的リスクが低いので、コスパ重視でOK！
                                             </p>
                                             <p className="text-xs text-blue-800 mt-2">
-                                                弁護士監修×労働組合提携で、会社との交渉も可能です。27,000円（税込）で後払い・全額返金保証付き。今日から会社に行かなくて済みます。
+                                                弁護士監修×労働組合提携で、会社との交渉も可能です。29,000円（税込・安心パック）で後払い・全額返金保証付き。今日から会社に行かなくて済みます。
                                             </p>
                                         </div>
                                         <Button size="lg" className="w-full max-w-xs h-14 text-lg font-bold bg-blue-600 hover:bg-blue-700 shadow-lg shadow-blue-200" asChild>

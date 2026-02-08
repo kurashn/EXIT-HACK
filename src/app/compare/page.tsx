@@ -80,7 +80,7 @@ export default function Compare() {
                                     <div className="bg-slate-100 p-2 rounded-lg"><HelpCircle className="w-5 h-5 text-slate-500" /></div>
                                     料金(税込)
                                 </div>
-                                <div className="text-center font-bold text-blue-600 text-lg">¥27,000</div>
+                                <div className="text-center font-bold text-blue-600 text-lg">¥29,000</div>
                                 <div className="text-center font-bold text-emerald-600">¥19,800</div>
                                 <div className="text-center font-bold text-amber-600">¥43,800</div>
                                 <div className="text-center text-slate-500">¥10,000~</div>
@@ -204,7 +204,7 @@ export default function Compare() {
                         </div>
                     </div>
                 </div>
-                <div className="text-center text-xs text-slate-400 mt-4">※退職110番は基本料金43,800円のほか、金銭請求時に成功報酬（回収額の20〜30%）が別途発生します。※退職代行Jobsは27,000円（税込）です。安心パックプランでは別途、労働組合費2,000円が発生します。</div>
+                <div className="text-center text-xs text-slate-400 mt-4">※退職110番は基本料金43,800円のほか、金銭請求時に成功報酬（回収額の20〜30%）が別途発生します。※退職代行Jobsの安心パックプランは29,000円（税込・退職代行27,000円＋労働組合費2,000円）です。</div>
 
                 <div className="mt-16 bg-white p-8 rounded-2xl shadow-sm border border-slate-100 max-w-4xl mx-auto">
                     <h2 className="text-2xl font-bold text-slate-900 mb-6">比較のポイント解説</h2>

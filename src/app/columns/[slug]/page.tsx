@@ -371,7 +371,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
 
                                     <div className="bg-white text-slate-900 rounded-lg p-3 mb-4 shadow-sm text-left">
                                         <div className="text-xs font-bold text-blue-600 mb-1">退職代行Jobs</div>
-                                        <div className="font-bold text-xl">¥27,000</div>
+                                        <div className="font-bold text-xl">¥29,000</div>
                                         <div className="text-[10px] text-slate-500 mt-1">弁護士監修 × 労働組合提携</div>
                                     </div>
 
