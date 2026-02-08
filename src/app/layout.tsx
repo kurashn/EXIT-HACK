@@ -45,7 +45,7 @@ export const metadata: Metadata = {
     images: ["/ogp.png"],
   },
   icons: {
-    icon: "/favicon.ico",
+    icon: "/icon.svg",
   },
   verification: {
     google: "U-eest0kNsPYHcPIdb9IPwQ8fzBDDx6tLkt2ewp8_Gc",
