@@ -78,10 +78,12 @@ export default function Terms() {
                         <section>
                             <h2 className="text-xl font-bold text-slate-900 mb-4">第7条（お問い合わせ）</h2>
                             <p>
-                                本規約に関するお問い合わせは、下記メールアドレスまでお願いいたします。
+                                本規約に関するお問い合わせは、下記フォームよりお願いいたします。
                             </p>
-                            <p className="mt-3 font-medium text-slate-900">
-                                メール：shunknomad@gmail.com
+                            <p className="mt-3">
+                                <a href="https://forms.gle/zWoKorLkHMsdUCPh8" target="_blank" rel="noopener noreferrer" className="font-medium text-blue-600 hover:text-blue-800 underline">
+                                    お問い合わせフォーム
+                                </a>
                             </p>
                         </section>
 

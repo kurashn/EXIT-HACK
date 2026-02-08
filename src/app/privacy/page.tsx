@@ -77,10 +77,12 @@ export default function Privacy() {
                         <section>
                             <h2 className="text-xl font-bold text-slate-900 mb-4">7. お問い合わせ</h2>
                             <p>
-                                プライバシーポリシーに関するお問い合わせは、下記メールアドレスまでお願いいたします。
+                                プライバシーポリシーに関するお問い合わせは、下記フォームよりお願いいたします。
                             </p>
-                            <p className="mt-3 font-medium text-slate-900">
-                                メール：shunknomad@gmail.com
+                            <p className="mt-3">
+                                <a href="https://forms.gle/zWoKorLkHMsdUCPh8" target="_blank" rel="noopener noreferrer" className="font-medium text-blue-600 hover:text-blue-800 underline">
+                                    お問い合わせフォーム
+                                </a>
                             </p>
                         </section>
 
