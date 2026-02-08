@@ -57,6 +57,9 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
     const contentLines = article.content.split('\n');
     let processedContent = "";
     let inList = false;
+    let inTable = false;
+    let tableRows: string[][] = [];
+    let tableHeaderCount = 0;
 
     const closeListIfNeeded = () => {
         if (inList) {
@@ -65,11 +68,42 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
         }
     };
 
+    const closeTableIfNeeded = () => {
+        if (inTable && tableRows.length > 0) {
+            let tableHtml = `<div style="overflow-x:auto;margin-bottom:2rem"><table style="width:100%;background:#fff;border-radius:0.75rem;border:1px solid #e2e8f0;box-shadow:0 1px 2px rgba(0,0,0,0.05);overflow:hidden;border-collapse:collapse">`;
+            tableRows.forEach((cells, idx) => {
+                if (idx === 0) {
+                    tableHtml += `<thead><tr style="background:#2563eb;color:#fff">`;
+                    cells.forEach((cell, ci) => {
+                        const padLeft = ci === 0 ? '2rem' : '1.5rem';
+                        tableHtml += `<th style="padding:0.75rem 1.5rem 0.75rem ${padLeft};text-align:left;font-size:0.875rem;font-weight:700;white-space:nowrap;color:#fff">${cell}</th>`;
+                    });
+                    tableHtml += `</tr></thead><tbody>`;
+                } else {
+                    const bgColor = idx % 2 === 0 ? '#f8fafc' : '#fff';
+                    tableHtml += `<tr style="background:${bgColor};border-top:1px solid #f1f5f9">`;
+                    cells.forEach((cell, ci) => {
+                        const padLeft = ci === 0 ? '2rem' : '1.5rem';
+                        const noWrap = ci === 0 ? 'white-space:nowrap;' : '';
+                        tableHtml += `<td style="padding:0.75rem 1.5rem 0.75rem ${padLeft};font-size:0.875rem;color:#334155;${noWrap}">${cell}</td>`;
+                    });
+                    tableHtml += `</tr>`;
+                }
+            });
+            tableHtml += `</tbody></table></div>\n`;
+            processedContent += tableHtml;
+            tableRows = [];
+            tableHeaderCount = 0;
+            inTable = false;
+        }
+    };
+
     contentLines.forEach((line) => {
         // H2
         const h2Match = line.match(/^##\s+(.+)$/);
         if (h2Match) {
             closeListIfNeeded();
+            closeTableIfNeeded();
             const text = h2Match[1];
             // Match Reference: White Card, 4px Left Border, Shadow
             processedContent += `<h2 class="text-2xl md:text-3xl font-bold mt-16 mb-8 text-slate-900 bg-white px-6 py-5 rounded-xl border-l-4 border-blue-600 shadow-sm flex items-center gap-3">${text}</h2>\n`;
@@ -80,6 +114,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
         const h3Match = line.match(/^###\s+(.+)$/);
         if (h3Match) {
             closeListIfNeeded();
+            closeTableIfNeeded();
             // Match Reference: Left Border, Padding, No Bottom Border
             processedContent += `<h3 class="text-xl md:text-2xl font-bold mt-10 mb-6 text-slate-900 border-l-4 border-blue-600 pl-4">${h3Match[1]}</h3>\n`;
             return;
@@ -96,7 +131,8 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
                 processedContent += `<ul class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm space-y-3 mb-8">\n`;
                 inList = true;
             }
-            processedContent += `<li class="text-slate-700 flex items-start gap-3">${checkIcon}<span><strong class="text-slate-900 font-bold">${boldListItemMatch[1]}</strong>${boldListItemMatch[2]}</span></li>\n`;
+            const rest = boldListItemMatch[2].replace(/\*\*(.+?)\*\*/g, '<strong class="text-slate-900 font-bold">$1</strong>');
+            processedContent += `<li class="text-slate-700 flex items-start gap-3">${checkIcon}<span><strong class="text-slate-900 font-bold">${boldListItemMatch[1]}</strong>${rest}</span></li>\n`;
             return;
         }
 
@@ -138,6 +174,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
         const buttonLinkMatch = lineContent.match(/^\[＞＞\s*(.+?)\]\((.+?)\)$/);
         if (buttonLinkMatch) {
             closeListIfNeeded();
+            closeTableIfNeeded();
             const text = buttonLinkMatch[1];
             const url = buttonLinkMatch[2];
             processedContent += `
@@ -152,20 +189,41 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
             return;
         }
 
+        // Table rows (lines starting with |) - must use raw 'line' to preserve ** markers
+        if (line.trim().startsWith('|') && line.trim().endsWith('|')) {
+            closeListIfNeeded();
+            const rawCells = line.trim().slice(1, -1).split('|').map(c => c.trim());
+            // Skip separator row (|---|---|)
+            if (rawCells.every(c => /^[-:]+$/.test(c))) {
+                return;
+            }
+            // Apply bold formatting inside cells
+            const cells = rawCells.map(c => c.replace(/\*\*(.+?)\*\*/g, '<strong class="font-bold text-slate-900">$1</strong>'));
+            if (!inTable) {
+                inTable = true;
+                tableHeaderCount = cells.length;
+            }
+            tableRows.push(cells);
+            return;
+        }
+
         // Inline Links
         lineContent = lineContent.replace(/\[(.+?)\]\((.+?)\)/g, '<a href="$2" class="text-blue-600 underline hover:text-blue-800 transition-colors">$1</a>');
 
         // Paragraphs
         if (lineContent.trim() === "") {
             closeListIfNeeded();
+            closeTableIfNeeded();
             processedContent += "\n";
         } else {
             closeListIfNeeded(); // If we reached here, it's a paragraph
+            closeTableIfNeeded();
             processedContent += `<p class="mb-6 text-slate-600 leading-8 text-[1.05rem] tracking-wide">${lineContent}</p>\n`;
         }
     });
 
     closeListIfNeeded(); // Ensure list is closed at end
+    closeTableIfNeeded(); // Ensure table is closed at end
 
     // Extract FAQs
     const faqs: { question: string; answer: string }[] = [];
@@ -313,7 +371,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
 
                                     <div className="bg-white text-slate-900 rounded-lg p-3 mb-4 shadow-sm text-left">
                                         <div className="text-xs font-bold text-blue-600 mb-1">退職代行Jobs</div>
-                                        <div className="font-bold text-xl">¥24,000</div>
+                                        <div className="font-bold text-xl">¥27,000</div>
                                         <div className="text-[10px] text-slate-500 mt-1">弁護士監修 × 労働組合提携</div>
                                     </div>
 

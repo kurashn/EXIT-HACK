@@ -195,7 +195,7 @@ export default function Home() {
                   </div>
                   <div className="rounded-lg bg-slate-50 p-4 text-center border border-slate-200">
                     <div className="text-xs text-slate-500 mb-1">安心パックプラン（労働組合加入込み）</div>
-                    <p className="text-3xl font-bold text-slate-900 font-mono">24,000<span className="text-base font-sans text-slate-500 font-normal">円(税込)</span></p>
+                    <p className="text-3xl font-bold text-slate-900 font-mono">27,000<span className="text-base font-sans text-slate-500 font-normal">円(税込)</span></p>
                   </div>
                 </CardContent>
                 <div className="p-6 pt-0">

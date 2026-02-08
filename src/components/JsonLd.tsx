@@ -107,7 +107,7 @@ export function JsonLd({ type, article, faqs }: JsonLdProps) {
                             "@type": "ListItem",
                             position: 2,
                             name: "退職代行Jobs",
-                            description: "弁護士監修×労働組合提携。24,000円（安心パック）。後払い・全額返金保証あり。",
+                            description: "弁護士監修×労働組合提携。27,000円（税込）。後払い・全額返金保証あり。",
                         },
                         {
                             "@type": "ListItem",
