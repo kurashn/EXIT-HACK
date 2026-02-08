@@ -26,6 +26,8 @@ export default config({
                         { label: "お金・制度", value: "money" },
                         { label: "トラブル回避", value: "trouble" },
                         { label: "選び方", value: "selection" },
+                        { label: "注意喚起", value: "attention" },
+                        { label: "比較", value: "comparison" },
                     ],
                     defaultValue: "basic",
                 }),
