@@ -6,9 +6,6 @@ export default config({
             ? {
                 kind: "github",
                 repo: "kurashn/EXIT-HACK",
-                clientId: process.env.KEYSTATIC_GITHUB_CLIENT_ID,
-                clientSecret: process.env.KEYSTATIC_GITHUB_CLIENT_SECRET,
-                secret: process.env.KEYSTATIC_SECRET,
             }
             : {
                 kind: "local",

@@ -9,4 +9,9 @@ console.log("Keystatic Env Check:", {
     mode: process.env.NODE_ENV,
 });
 
-export const { POST, GET } = makeRouteHandler({ config });
+export const { POST, GET } = makeRouteHandler({
+    config,
+    clientId: process.env.KEYSTATIC_GITHUB_CLIENT_ID,
+    clientSecret: process.env.KEYSTATIC_GITHUB_CLIENT_SECRET,
+    secret: process.env.KEYSTATIC_SECRET,
+});
