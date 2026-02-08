@@ -18,6 +18,7 @@ const categoryLabels: Record<string, string> = {
     money: "お金・制度",
     trouble: "トラブル回避",
     selection: "選び方",
+    attention: "注意喚起",
 };
 
 export default async function Columns() {

@@ -35,6 +35,7 @@ const categoryLabels: Record<string, string> = {
     money: "お金・制度",
     trouble: "トラブル回避",
     selection: "選び方",
+    attention: "注意喚起",
 };
 
 export async function generateStaticParams() {
@@ -276,8 +277,13 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
 
                             {/* Author Profile */}
                             <div className="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm text-center">
-                                <div className="w-20 h-20 bg-slate-200 rounded-full mx-auto mb-4 overflow-hidden relative">
-                                    <div className="absolute inset-0 flex items-center justify-center text-3xl">👨‍💻</div>
+                                <div className="w-20 h-20 mx-auto mb-4 relative">
+                                    <Image
+                                        src="/images/exit_hack_editor.png"
+                                        alt="EXIT HACK編集部"
+                                        fill
+                                        className="rounded-full object-cover border border-slate-100"
+                                    />
                                 </div>
                                 <div className="font-bold text-slate-900 text-lg">EXIT HACK編集部</div>
                                 <p className="text-xs text-slate-500 mt-2 leading-relaxed">
