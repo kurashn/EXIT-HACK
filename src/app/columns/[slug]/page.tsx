@@ -144,8 +144,11 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
                 processedContent += `<ul class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm space-y-3 mb-8">\n`;
                 inList = true;
             }
+            // Apply inline link replacement inside list items
+            let listContent = listItemMatch[1];
+            listContent = listContent.replace(/\[(.+?)\]\((.+?)\)/g, '<a href="$2" class="text-blue-600 underline hover:text-blue-800 transition-colors">$1</a>');
             // Uses Check icon now
-            processedContent += `<li class="text-slate-700 flex items-start gap-3">${checkIcon}<span>${listItemMatch[1]}</span></li>\n`;
+            processedContent += `<li class="text-slate-700 flex items-start gap-3">${checkIcon}<span>${listContent}</span></li>\n`;
             return;
         }
 
@@ -209,6 +212,15 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
 
         // Inline Links
         lineContent = lineContent.replace(/\[(.+?)\]\((.+?)\)/g, '<a href="$2" class="text-blue-600 underline hover:text-blue-800 transition-colors">$1</a>');
+
+        // Standalone link line (entire line is a single <a> tag after replacement)
+        const standaloneLink = lineContent.match(/^<a href="(.+?)" class="[^"]*">(.+?)<\/a>$/);
+        if (standaloneLink) {
+            closeListIfNeeded();
+            closeTableIfNeeded();
+            processedContent += `<div class="mb-4"><a href="${standaloneLink[1]}" class="text-blue-600 underline hover:text-blue-800 transition-colors">${standaloneLink[2]}</a></div>\n`;
+            return;
+        }
 
         // Paragraphs
         if (lineContent.trim() === "") {
