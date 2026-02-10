@@ -54,7 +54,17 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
     }
 
     // Stateful Markdown parser
-    const contentLines = article.content.split('\n');
+    const rawLines = article.content.split('\n');
+    // Pre-process: merge standalone "A." lines with next line
+    const contentLines: string[] = [];
+    for (let i = 0; i < rawLines.length; i++) {
+        if (rawLines[i].trim() === 'A.' && i + 1 < rawLines.length) {
+            contentLines.push('A. ' + rawLines[i + 1]);
+            i++; // skip merged line
+        } else {
+            contentLines.push(rawLines[i]);
+        }
+    }
     let processedContent = "";
     let inList = false;
     let inTable = false;
