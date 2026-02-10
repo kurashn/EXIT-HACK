@@ -146,7 +146,12 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
             }
             // Apply inline link replacement inside list items
             let listContent = listItemMatch[1];
-            listContent = listContent.replace(/\[(.+?)\]\((.+?)\)/g, '<a href="$2" class="text-blue-600 underline hover:text-blue-800 transition-colors">$1</a>');
+            listContent = listContent.replace(/\[(.+?)\]\((.+?)\)/g, (_, text, url) => {
+                if (url.startsWith('http')) {
+                    return `<a href="${url}" target="_blank" rel="noopener" class="text-blue-600 underline hover:text-blue-800 transition-colors">${text}</a>`;
+                }
+                return `<a href="${url}" class="text-blue-600 underline hover:text-blue-800 transition-colors">${text}</a>`;
+            });
             // Uses Check icon now
             processedContent += `<li class="text-slate-700 flex items-start gap-3">${checkIcon}<span>${listContent}</span></li>\n`;
             return;
@@ -211,7 +216,12 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
         }
 
         // Inline Links
-        lineContent = lineContent.replace(/\[(.+?)\]\((.+?)\)/g, '<a href="$2" class="text-blue-600 underline hover:text-blue-800 transition-colors">$1</a>');
+        lineContent = lineContent.replace(/\[(.+?)\]\((.+?)\)/g, (_, text, url) => {
+            if (url.startsWith('http')) {
+                return `<a href="${url}" target="_blank" rel="noopener" class="text-blue-600 underline hover:text-blue-800 transition-colors">${text}</a>`;
+            }
+            return `<a href="${url}" class="text-blue-600 underline hover:text-blue-800 transition-colors">${text}</a>`;
+        });
 
         // Standalone link line (entire line is a single <a> tag after replacement)
         const standaloneLink = lineContent.match(/^<a href="(.+?)" class="[^"]*">(.+?)<\/a>$/);
