@@ -322,6 +322,11 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
             </div>
 
             <main className="flex-1 container px-4 md:px-6 mx-auto max-w-6xl py-12">
+                {/* Affiliate Disclosure (ステマ規制対応) */}
+                <div className="mb-8 px-4 py-3 bg-slate-50 border border-slate-200 rounded-lg text-xs text-slate-500 text-center">
+                    ※本記事にはプロモーションが含まれています
+                </div>
+
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
 
                     {/* Main Content */}
