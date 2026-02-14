@@ -60,6 +60,17 @@ Following the strategy, here are the top 5 articles to write next.
 - **Keywords**: `退職代行 0円`, `無料`, `安い`, `相場`, `後払い`.
 - **Content**: Debunk "Free" (usually means "you do it yourself" or scam). Pivot to "Post-pay" (reliable alternative).
 
+### Priority 6: The "Mental Health / HSP" Niche (High CV)
+**Title**: **「退職代行は甘え？」HSPやうつ病で辞められない人が使うべき3つの理由【心を守る】**
+- **Keywords**: `退職代行 HSP`, `うつ病`, `適応障害`, `甘え`, `逃げ`.
+- **Content**: Validate their pain. Explain that "quitting to save your life is not running away."
+- **Services**: Push "Jobs" (Therapist counseling) heavily.
+
+### Priority 7: The "Part-Time / Student" Volume
+**Title**: **バイトを即日辞めたい学生へ。バックレるより安全に退職代行を使う方法と親バレ対策**
+- **Keywords**: `バイト`, `パート`, `辞めさせてくれない`, `親バレ`, `損害賠償`.
+- **Content**: Address younger demographic's fear of parents/school. Recommend cheaper services (Guardian/Torikeshi).
+
 ---
 
 ## 4. Next Actions
