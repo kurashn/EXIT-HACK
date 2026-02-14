@@ -34,6 +34,7 @@ export default config({
                         { label: "選び方", value: "selection" },
                         { label: "注意喚起", value: "attention" },
                         { label: "比較", value: "comparison" },
+                        { label: "おすすめ", value: "recommendation" },
                     ],
                     defaultValue: "basic",
                 }),

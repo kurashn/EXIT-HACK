@@ -156,8 +156,9 @@ export default function Home() {
                 </CardContent>
                 <div className="p-6 pt-0">
                   <Button className="w-full h-12 text-base font-bold" asChild>
-                    <a href="https://jobs1.jp/" target="_blank" rel="nofollow noopener">
+                    <a href="https://h.accesstrade.net/sp/cc?rk=0100q2uz00onzd" target="_blank" rel="nofollow noopener">
                       公式サイトで無料相談 <ArrowRight className="ml-2 h-4 w-4" />
+                      <img src="https://h.accesstrade.net/sp/rr?rk=0100q2uz00onzd" width="1" height="1" alt="" style={{ display: 'none' }} />
                     </a>
                   </Button>
                 </div>

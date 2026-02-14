@@ -14,6 +14,8 @@ const categoryLabels: Record<string, string> = {
     trouble: "トラブル回避",
     selection: "選び方",
     attention: "注意喚起",
+    recommendation: "おすすめ",
+    comparison: "比較",
 };
 
 type Article = {

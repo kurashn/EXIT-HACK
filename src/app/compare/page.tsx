@@ -184,7 +184,10 @@ export default function Compare() {
                                 <div className="font-bold text-slate-900 text-lg">おすすめ度</div>
                                 <div className="col-span-1 p-2">
                                     <Button className="w-full bg-blue-600 hover:bg-blue-700 font-bold shadow-lg shadow-blue-200" asChild>
-                                        <a href="https://jobs1.jp/" target="_blank" rel="nofollow noopener">詳細を見る</a>
+                                        <a href="https://h.accesstrade.net/sp/cc?rk=0100q2uz00onzd" target="_blank" rel="nofollow noopener">
+                                            詳細を見る
+                                            <img src="https://h.accesstrade.net/sp/rr?rk=0100q2uz00onzd" width="1" height="1" alt="" style={{ display: 'none' }} />
+                                        </a>
                                     </Button>
                                 </div>
                                 <div className="col-span-1 p-2">

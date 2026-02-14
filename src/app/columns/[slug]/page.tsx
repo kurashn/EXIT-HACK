@@ -36,6 +36,8 @@ const categoryLabels: Record<string, string> = {
     trouble: "トラブル回避",
     selection: "選び方",
     attention: "注意喚起",
+    recommendation: "おすすめ",
+    comparison: "比較",
 };
 
 export async function generateStaticParams() {
@@ -65,6 +67,30 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
             contentLines.push(rawLines[i]);
         }
     }
+    const renderLink = (text: string, url: string) => {
+        // AccessTrade Affiliate Link Logic
+        if (url && url.includes('accesstrade.net')) {
+            try {
+                // simple extraction of rk param if URL object fails or for safety
+                const rkMatch = url.match(/[?&]rk=([^&]+)/);
+                const rk = rkMatch ? rkMatch[1] : null;
+
+                if (rk) {
+                    const trackingUrl = `https://h.accesstrade.net/sp/rr?rk=${rk}`;
+                    return `<a href="${url}" rel="nofollow" referrerpolicy="no-referrer-when-downgrade" target="_blank" class="text-blue-600 underline hover:text-blue-800 transition-colors">${text}<img src="${trackingUrl}" width="1" height="1" border="0" alt="" style="display:none !important;" /></a>`;
+                }
+            } catch (e) {
+                // fallback to normal link if parsing fails
+                console.error('Failed to parse affiliate URL', e);
+            }
+        }
+
+        if (url && url.startsWith('http')) {
+            return `<a href="${url}" target="_blank" rel="noopener" class="text-blue-600 underline hover:text-blue-800 transition-colors">${text}</a>`;
+        }
+        return `<a href="${url}" class="text-blue-600 underline hover:text-blue-800 transition-colors">${text}</a>`;
+    };
+
     let processedContent = "";
     let inList = false;
     let inTable = false;
@@ -156,12 +182,8 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
             }
             // Apply inline link replacement inside list items
             let listContent = listItemMatch[1];
-            listContent = listContent.replace(/\[(.+?)\]\((.+?)\)/g, (_, text, url) => {
-                if (url.startsWith('http')) {
-                    return `<a href="${url}" target="_blank" rel="noopener" class="text-blue-600 underline hover:text-blue-800 transition-colors">${text}</a>`;
-                }
-                return `<a href="${url}" class="text-blue-600 underline hover:text-blue-800 transition-colors">${text}</a>`;
-            });
+            listContent = listContent.replace(/\*\*(.+?)\*\*/g, '<strong class="text-slate-900 font-bold">$1</strong>');
+            listContent = listContent.replace(/\[(.+?)\]\((.+?)\)/g, (_, text, url) => renderLink(text, url));
             // Uses Check icon now
             processedContent += `<li class="text-slate-700 flex items-start gap-3">${checkIcon}<span>${listContent}</span></li>\n`;
             return;
@@ -181,6 +203,9 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
             // Bold text replacement inside list item
             text = text.replace(/\*\*(.+?)\*\*/g, '<strong class="text-slate-900 font-bold bg-yellow-200/40 px-1 rounded mx-0.5">$1</strong>');
 
+            // Inline Links
+            text = text.replace(/\[(.+?)\]\((.+?)\)/g, (_, t, url) => renderLink(t, url));
+
             processedContent += `<li class="text-slate-700 flex items-start gap-3"><span class="bg-blue-600 text-white rounded-full w-6 h-6 flex items-center justify-center font-bold text-xs shrink-0 mt-0.5">${number}</span><span>${text}</span></li>\n`;
             return;
         }
@@ -195,13 +220,34 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
             closeTableIfNeeded();
             const text = buttonLinkMatch[1];
             const url = buttonLinkMatch[2];
+
+            let extraAttrs = '';
+            let trackingPixel = '';
+
+            if (url && url.includes('accesstrade.net')) {
+                try {
+                    const rkMatch = url.match(/[?&]rk=([^&]+)/);
+                    const rk = rkMatch ? rkMatch[1] : null;
+                    if (rk) {
+                        const trackingUrl = `https://h.accesstrade.net/sp/rr?rk=${rk}`;
+                        trackingPixel = `<img src="${trackingUrl}" width="1" height="1" alt="" style="display:none !important;" />`;
+                        extraAttrs = 'target="_blank" rel="nofollow" referrerpolicy="no-referrer-when-downgrade"';
+                    }
+                } catch (e) {
+                    console.error('Failed to parse affiliate URL in button', e);
+                }
+            } else if (url && url.startsWith('http')) {
+                extraAttrs = 'target="_blank" rel="noopener"';
+            }
+
             processedContent += `
                 <div class="my-12 text-center">
-                    <a href="${url}" class="inline-flex items-center justify-center bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-700 hover:to-blue-600 !text-white !no-underline font-bold py-4 px-10 rounded-full shadow-lg transform transition hover:-translate-y-1 hover:shadow-xl text-lg group">
+                    <a href="${url}" ${extraAttrs} class="inline-flex items-center justify-center bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-700 hover:to-blue-600 !text-white !no-underline font-bold py-4 px-10 rounded-full shadow-lg transform transition hover:-translate-y-1 hover:shadow-xl text-lg group">
                         ${text}
                         <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 ml-2 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
                         </svg>
+                        ${trackingPixel}
                     </a>
                 </div>\n`;
             return;
@@ -226,15 +272,11 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
         }
 
         // Inline Links
-        lineContent = lineContent.replace(/\[(.+?)\]\((.+?)\)/g, (_, text, url) => {
-            if (url.startsWith('http')) {
-                return `<a href="${url}" target="_blank" rel="noopener" class="text-blue-600 underline hover:text-blue-800 transition-colors">${text}</a>`;
-            }
-            return `<a href="${url}" class="text-blue-600 underline hover:text-blue-800 transition-colors">${text}</a>`;
-        });
+        lineContent = lineContent.replace(/\[(.+?)\]\((.+?)\)/g, (_, text, url) => renderLink(text, url));
 
         // Standalone link line (entire line is a single <a> tag after replacement)
-        const standaloneLink = lineContent.match(/^<a href="(.+?)" class="[^"]*">(.+?)<\/a>$/);
+        // Relaxed regex to match affiliate links with extra attributes like rel, target, etc.
+        const standaloneLink = lineContent.match(/^<a href="([^"]+)"[^>]*>(.+?)<\/a>$/);
         if (standaloneLink) {
             closeListIfNeeded();
             closeTableIfNeeded();
@@ -342,10 +384,11 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
                         <div
                             className="prose prose-slate prose-lg md:prose-xl max-w-none 
               prose-headings:scroll-mt-32 
-              prose-a:text-blue-600 prose-a:no-underline hover:prose-a:underline
+              prose-a:text-blue-600 prose-a:underline
               prose-strong:font-bold prose-strong:text-slate-900
               prose-li:marker:text-blue-400
-              [&>ul]:list-none [&>ul]:pl-0"
+              [&>ul]:list-none [&>ul]:pl-0
+              [&_a:hover]:underline"
                             dangerouslySetInnerHTML={{ __html: processedContent }}
                         />
 

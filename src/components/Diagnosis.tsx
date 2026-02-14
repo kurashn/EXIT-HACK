@@ -155,8 +155,9 @@ export function Diagnosis() {
                                             </p>
                                         </div>
                                         <Button size="lg" className="w-full max-w-xs h-14 text-lg font-bold bg-blue-600 hover:bg-blue-700 shadow-lg shadow-blue-200" asChild>
-                                            <a href="https://jobs1.jp/" target="_blank" rel="nofollow noopener">
+                                            <a href="https://h.accesstrade.net/sp/cc?rk=0100q2uz00onzd" target="_blank" rel="nofollow noopener">
                                                 Jobsに無料相談する <ArrowRight className="ml-2" />
+                                                <img src="https://h.accesstrade.net/sp/rr?rk=0100q2uz00onzd" width="1" height="1" alt="" style={{ display: 'none' }} />
                                             </a>
                                         </Button>
                                     </div>
