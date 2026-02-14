@@ -93,14 +93,16 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
 
     let processedContent = "";
     let inList = false;
+    let currentListType: 'ul' | 'ol' | null = null;
     let inTable = false;
     let tableRows: string[][] = [];
     let tableHeaderCount = 0;
 
     const closeListIfNeeded = () => {
         if (inList) {
-            processedContent += "</ul>\n";
+            processedContent += currentListType === 'ol' ? "</ol>\n" : "</ul>\n";
             inList = false;
+            currentListType = null;
         }
     };
 
@@ -159,26 +161,28 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
         // Checkmark SVG for lists
         const checkIcon = `<span class="text-blue-600 mt-2 shrink-0"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg></span>`;
 
-        // Bold List Items
-        const boldListItemMatch = line.match(/^\-\s+\*\*(.+?)\*\*(.*)$/);
+        // Bold List Items (hyphen or asterisk)
+        const boldListItemMatch = line.match(/^[\-\*]\s+\*\*(.+?)\*\*(.*)$/);
         if (boldListItemMatch) {
             if (!inList) {
                 // Match Reference: White box, shadow
                 processedContent += `<ul class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm space-y-3 mb-8">\n`;
                 inList = true;
+                currentListType = 'ul';
             }
             const rest = boldListItemMatch[2].replace(/\*\*(.+?)\*\*/g, '<strong class="text-slate-900 font-bold">$1</strong>');
             processedContent += `<li class="text-slate-700 flex items-start gap-3">${checkIcon}<span><strong class="text-slate-900 font-bold">${boldListItemMatch[1]}</strong>${rest}</span></li>\n`;
             return;
         }
 
-        // Normal List Items
-        const listItemMatch = line.match(/^\-\s+(.+)$/);
+        // Normal List Items (hyphen or asterisk)
+        const listItemMatch = line.match(/^[\-\*]\s+(.+)$/);
         if (listItemMatch) {
             if (!inList) {
                 // Match Reference: White box, shadow
                 processedContent += `<ul class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm space-y-3 mb-8">\n`;
                 inList = true;
+                currentListType = 'ul';
             }
             // Apply inline link replacement inside list items
             let listContent = listItemMatch[1];
@@ -196,6 +200,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
                 // Match Reference: White box, shadow, space-y-4
                 processedContent += `<ol class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm space-y-4 mb-8">\n`;
                 inList = true;
+                currentListType = 'ol';
             }
             const number = orderedItemMatch[1];
             let text = orderedItemMatch[2];
