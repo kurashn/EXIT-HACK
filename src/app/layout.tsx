@@ -44,9 +44,6 @@ export const metadata: Metadata = {
     description: "退職代行サービスの徹底比較と、自分らしくはたらくためのキャリア・リセットガイド。",
     images: ["/ogp.png"],
   },
-  icons: {
-    icon: "/icon.svg",
-  },
   verification: {
     google: "U-eest0kNsPYHcPIdb9IPwQ8fzBDDx6tLkt2ewp8_Gc",
   },
